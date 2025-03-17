@@ -1,0 +1,110 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+  }
+
+  .container {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    }
+
+  h2 {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  @media (max-width: 420px) {
+    .container {
+      background-color: gray;
+    }
+    h2 {
+      color: white;
+    }
+    h2::before {
+      content: "Cinza";
+    }
+  }
+
+  @media (min-width: 421px) and (max-width: 768px) {
+    .container {
+      background-color: orange;
+    }
+    h2 {
+      color: black;
+    }
+    h2::before {
+      content: "Laranja";
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+      background-color: rgb(255, 5, 205);
+    }
+    h2 {
+      color: white;
+    }
+    h2::before {
+      content: "Rosa";
+    }
+  }
+
+  @media (min-width: 1025px) and (max-width: 1080px) {
+    .container {
+      background-color: red;
+    }
+    h2 {
+      color: black;
+    }
+    h2::before {
+      content: "red";
+    }
+  }
+
+  @media (min-width: 1081px) and (max-width: 1366px) {
+    .container {
+      background-color: blueviolet;
+    }
+    h2 {
+      color: white;
+    }
+    h2::before {
+      content: "Azul";
+    }
+    
+  }
+
+ @media (min-width: 1367px) and (max-width: 1920px) {
+    .container {
+        background-color: yellow;
+    }
+    h2 {
+        color: black;
+    }
+
+    h2::before {
+        content: "Amarelo";
+    }
+}
+
+    @media (min-width: 1921px) {
+        .container {
+            background-color: green;
+        }
+
+        h2 {
+            color: white;
+        }
+
+        h2::before {
+            content: "Verde";
+        }
+    }
