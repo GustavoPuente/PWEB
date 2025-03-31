@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedra, Papel e Tesoura</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .button-container { margin-top: 20px; }
+        button { font-size: 20px; margin: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Pedra, Papel e Tesoura</h1>
+    <p>Escolha uma opção:</p>
+    <div class="button-container">
+        <button onclick="jogar('pedra')">Pedra</button>
+        <button onclick="jogar('papel')">Papel</button>
+        <button onclick="jogar('tesoura')">Tesoura</button>
+    </div>
+    <p id="resultado"></p>
+    <p>Placar:</p>
+    <p>Usuário: <span id="placarUsuario">0</span> | Computador: <span id="placarComputador">0</span></p>
+
+    <script>
+        let placarUsuario = 0;
+        let placarComputador = 0;
+
+        function jogar(escolhaUsuario) {
+            const numeroAleatorio = Math.floor(Math.random() * 100);
+            let escolhaComputador = '';
+            
+            if (numeroAleatorio <= 33) {
+                escolhaComputador = 'pedra';
+            } else if (numeroAleatorio <= 66) {
+                escolhaComputador = 'tesoura';
+            } else {
+                escolhaComputador = 'papel';
+            }
+
+            let resultado = '';
+            if (escolhaUsuario === escolhaComputador) {
+                resultado = 'Empate!';
+            } else if (
+                (escolhaUsuario === 'pedra' && escolhaComputador === 'tesoura') ||
+                (escolhaUsuario === 'tesoura' && escolhaComputador === 'papel') ||
+                (escolhaUsuario === 'papel' && escolhaComputador === 'pedra')
+            ) {
+                resultado = 'Você venceu!';
+                placarUsuario++;
+            } else {
+                resultado = 'O computador venceu!';
+                placarComputador++;
+            }
+            
+            document.getElementById('resultado').textContent = `Você escolheu ${escolhaUsuario}, o computador escolheu ${escolhaComputador}. ${resultado}`;
+            document.getElementById('placarUsuario').textContent = placarUsuario;
+            document.getElementById('placarComputador').textContent = placarComputador;
+        }
+    </script>
+</body>
+</html>
