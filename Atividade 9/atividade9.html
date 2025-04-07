@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Atividade 9 - Funções</title>
+  <script src="funcoes.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .box {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+    }
+    input {
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Atividade 9 - Funções JavaScript</h2>
+
+  <div class="box">
+    <h3>1. Maior de três números</h3>
+    <input type="number" id="m1">
+    <input type="number" id="m2">
+    <input type="number" id="m3">
+    <button onclick="calcularMaior()">Calcular</button>
+    <p id="resultadoMaior"></p>
+  </div>
+
+  <div class="box">
+    <h3>2. Números em ordem crescente</h3>
+    <input type="number" id="o1">
+    <input type="number" id="o2">
+    <input type="number" id="o3">
+    <button onclick="ordenarNumeros()">Ordenar</button>
+    <p id="resultadoOrdem"></p>
+  </div>
+
+  <div class="box">
+    <h3>3. Verificar palíndromo</h3>
+    <input type="text" id="texto">
+    <button onclick="verificarPalindromo()">Verificar</button>
+    <p id="resultadoPalindromo"></p>
+  </div>
+
+  <div class="box">
+    <h3>4. Tipo de triângulo</h3>
+    <input type="number" id="t1">
+    <input type="number" id="t2">
+    <input type="number" id="t3">
+    <button onclick="verificarTriangulo()">Verificar</button>
+    <p id="resultadoTriangulo"></p>
+  </div>
+
+  <script>
+    function calcularMaior() {
+      const a = parseFloat(document.getElementById("m1").value);
+      const b = parseFloat(document.getElementById("m2").value);
+      const c = parseFloat(document.getElementById("m3").value);
+      const resultado = maiorNumero(a, b, c);
+      document.getElementById("resultadoMaior").innerText = "Maior número: " + resultado;
+    }
+
+    function ordenarNumeros() {
+      const a = parseFloat(document.getElementById("o1").value);
+      const b = parseFloat(document.getElementById("o2").value);
+      const c = parseFloat(document.getElementById("o3").value);
+      const resultado = ordenarCrescente(a, b, c);
+      document.getElementById("resultadoOrdem").innerText = "Ordem crescente: " + resultado.join(", ");
+    }
+
+    function verificarPalindromo() {
+      const str = document.getElementById("texto").value;
+      const resultado = ehPalindromo(str);
+      document.getElementById("resultadoPalindromo").innerText = resultado ? "É um palíndromo" : "Não é um palíndromo";
+    }
+
+    function verificarTriangulo() {
+      const a = parseFloat(document.getElementById("t1").value);
+      const b = parseFloat(document.getElementById("t2").value);
+      const c = parseFloat(document.getElementById("t3").value);
+      const resultado = tipoTriangulo(a, b, c);
+      document.getElementById("resultadoTriangulo").innerText = "Resultado: " + resultado;
+    }
+  </script>
+
+</body>
+</html>
