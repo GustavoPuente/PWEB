@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Pesquisa de Opinião</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, select, button {
+      margin: 5px;
+      padding: 5px;
+    }
+    .resultados {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Pesquisa de Opinião - Filme</h2>
+
+  <label>Idade: <input type="number" id="idade" min="1" required></label><br>
+
+  <label>Sexo:
+    <select id="sexo">
+      <option value="feminino">Feminino</option>
+      <option value="masculino">Masculino</option>
+      <option value="outros">Outros</option>
+    </select>
+  </label><br>
+
+  <label>Opinião:
+    <select id="opiniao">
+      <option value="4">Ótimo</option>
+      <option value="3">Bom</option>
+      <option value="2">Regular</option>
+      <option value="1">Péssimo</option>
+    </select>
+  </label><br>
+
+  <button onclick="adicionarResposta()">Adicionar Resposta</button>
+
+  <div id="contador"></div>
+
+  <div class="resultados" id="resultados"></div>
+
+  <script>
+    const respostas = [];
+
+    function adicionarResposta() {
+      const idade = parseInt(document.getElementById("idade").value);
+      const sexo = document.getElementById("sexo").value;
+      const opiniao = parseInt(document.getElementById("opiniao").value);
+
+      if (isNaN(idade) || idade <= 0) {
+        alert("Informe uma idade válida!");
+        return;
+      }
+
+      respostas.push({ idade, sexo, opiniao });
+      document.getElementById("idade").value = "";
+      document.getElementById("contador").innerText = `Respostas registradas: ${respostas.length}/45`;
+
+      if (respostas.length === 45) {
+        calcularResultados();
+      }
+    }
+
+    function calcularResultados() {
+      const totalIdade = respostas.reduce((acc, r) => acc + r.idade, 0);
+      const mediaIdade = totalIdade / respostas.length;
+      const maisVelha = Math.max(...respostas.map(r => r.idade));
+      const maisNova = Math.min(...respostas.map(r => r.idade));
+      const pessimo = respostas.filter(r => r.opiniao === 1).length;
+      const otimoBom = respostas.filter(r => r.opiniao === 4 || r.opiniao === 3).length;
+      const porcOtimoBom = (otimoBom / respostas.length) * 100;
+
+      const mulheres = respostas.filter(r => r.sexo === "feminino").length;
+      const homens = respostas.filter(r => r.sexo === "masculino").length;
+      const outros = respostas.filter(r => r.sexo === "outros").length;
+
+      const resultadosDiv = document.getElementById("resultados");
+      resultadosDiv.innerHTML = `
+        <h3>Resultados da Pesquisa</h3>
+        <p><strong>Média de idade:</strong> ${mediaIdade.toFixed(2)} anos</p>
+        <p><strong>Idade da pessoa mais velha:</strong> ${maisVelha} anos</p>
+        <p><strong>Idade da pessoa mais nova:</strong> ${maisNova} anos</p>
+        <p><strong>Quantidade que responderam péssimo:</strong> ${pessimo}</p>
+        <p><strong>Porcentagem que responderam ótimo ou bom:</strong> ${porcOtimoBom.toFixed(2)}%</p>
+        <p><strong>Mulheres:</strong> ${mulheres}, <strong>Homens:</strong> ${homens}, <strong>Outros:</strong> ${outros}</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
