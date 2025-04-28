@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplo de Objetos em JavaScript</title>
+  <style>
+    pre {
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+      padding: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <h1>Exibição das Três Formas de Criar o Objeto</h1>
+
+  <h2>Forma 1: Notação de Objeto Literal</h2>
+  <pre>
+const Funcionario1 = {
+  Matricula: 12345,
+  Nome: "João Silva",
+  Função: "Desenvolvedor"
+};
+  </pre>
+  
+  <h2>Forma 2: Usando Construtor de Objeto</h2>
+  <pre>
+const Funcionario2 = new Object();
+Funcionario2.Matricula = 12345;
+Funcionario2.Nome = "João Silva";
+Funcionario2.Função = "Desenvolvedor";
+  </pre>
+ 
+
+  <h2>Forma 3: Usando Função Construtora</h2>
+  <pre>
+function Funcionario(matricula, nome, funcao) {
+  this.Matricula = matricula;
+  this.Nome = nome;
+  this.Função = funcao;
+}
+
+const Funcionario3 = new Funcionario(12345, "João Silva", "Desenvolvedor");
+  </pre>
+  
+</body>
+</html>
