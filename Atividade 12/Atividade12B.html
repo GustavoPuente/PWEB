@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Conta, Corrente e Poupança</title>
+</head>
+<body>
+  <h1>Conta, Corrente e Poupança</h1>
+
+  <script>
+
+class Conta {
+      constructor(nome, banco, numeroConta, saldo) {
+        this._nome = nome;
+        this._banco = banco;
+        this._numeroConta = numeroConta;
+        this._saldo = saldo;
+      }
+
+      get nome() { return this._nome; }
+      set nome(valor) { this._nome = valor; }
+
+      get banco() { return this._banco; }
+      set banco(valor) { this._banco = valor; }
+
+      get numeroConta() { return this._numeroConta; }
+      set numeroConta(valor) { this._numeroConta = valor; }
+
+      get saldo() { return this._saldo; }
+      set saldo(valor) { this._saldo = valor; }
+    }
+
+    class Corrente {
+      constructor(nome, banco, numeroConta, saldo, saldoEspecial) {
+        this._nome = nome;
+        this._banco = banco;
+        this._numeroConta = numeroConta;
+        this._saldo = saldo;
+        this._saldoEspecial = saldoEspecial;
+      }
+
+      get nome() { return this._nome; }
+      set nome(valor) { this._nome = valor; }
+
+      get banco() { return this._banco; }
+      set banco(valor) { this._banco = valor; }
+
+      get numeroConta() { return this._numeroConta; }
+      set numeroConta(valor) { this._numeroConta = valor; }
+
+      get saldo() { return this._saldo; }
+      set saldo(valor) { this._saldo = valor; }
+
+      get saldoEspecial() { return this._saldoEspecial; }
+      set saldoEspecial(valor) { this._saldoEspecial = valor; }
+    }
+
+    class Poupanca {
+      constructor(nome, banco, numeroConta, saldo, juros, dataVencimento) {
+        this._nome = nome;
+        this._banco = banco;
+        this._numeroConta = numeroConta;
+        this._saldo = saldo;
+        this._juros = juros;
+        this._dataVencimento = dataVencimento;
+      }
+
+      get nome() { return this._nome; }
+      set nome(valor) { this._nome = valor; }
+
+      get banco() { return this._banco; }
+      set banco(valor) { this._banco = valor; }
+
+      get numeroConta() { return this._numeroConta; }
+      set numeroConta(valor) { this._numeroConta = valor; }
+
+      get saldo() { return this._saldo; }
+      set saldo(valor) { this._saldo = valor; }
+
+      get juros() { return this._juros; }
+      set juros(valor) { this._juros = valor; }
+
+      get dataVencimento() { return this._dataVencimento; }
+      set dataVencimento(valor) { this._dataVencimento = valor; }
+    }
+
+    const nomeCorrente = prompt("Digite o nome do correntista da Conta Corrente:");
+    const bancoCorrente = prompt("Digite o banco:");
+    const numeroContaCorrente = prompt("Digite o número da conta:");
+    const saldoCorrente = parseFloat(prompt("Digite o saldo:"));
+    const saldoEspecial = parseFloat(prompt("Digite o saldo especial:"));
+
+    const contaCorrente = new Corrente(nomeCorrente, bancoCorrente, numeroContaCorrente, saldoCorrente, saldoEspecial);
+
+    console.log("Dados da Conta Corrente:");
+    console.log("Nome:", contaCorrente.nome);
+    console.log("Banco:", contaCorrente.banco);
+    console.log("Número da Conta:", contaCorrente.numeroConta);
+    console.log("Saldo:", contaCorrente.saldo);
+    console.log("Saldo Especial:", contaCorrente.saldoEspecial);
+
+    alert(
+      "Conta Corrente:\n" +
+      "Nome: " + contaCorrente.nome + "\n" +
+      "Banco: " + contaCorrente.banco + "\n" +
+      "Número da Conta: " + contaCorrente.numeroConta + "\n" +
+      "Saldo: " + contaCorrente.saldo + "\n" +
+      "Saldo Especial: " + contaCorrente.saldoEspecial
+    );
+
+    const nomePoupanca = prompt("Digite o nome do correntista da Conta Poupança:");
+    const bancoPoupanca = prompt("Digite o banco:");
+    const numeroContaPoupanca = prompt("Digite o número da conta:");
+    const saldoPoupanca = parseFloat(prompt("Digite o saldo:"));
+    const juros = parseFloat(prompt("Digite a taxa de juros:"));
+    const dataVencimento = prompt("Digite a data de vencimento (dd/mm/aaaa):");
+
+    const contaPoupanca = new Poupanca(nomePoupanca, bancoPoupanca, numeroContaPoupanca, saldoPoupanca, juros, dataVencimento);
+
+    console.log("Dados da Conta Poupança:");
+    console.log("Nome:", contaPoupanca.nome);
+    console.log("Banco:", contaPoupanca.banco);
+    console.log("Número da Conta:", contaPoupanca.numeroConta);
+    console.log("Saldo:", contaPoupanca.saldo);
+    console.log("Juros:", contaPoupanca.juros);
+    console.log("Data de Vencimento:", contaPoupanca.dataVencimento);
+
+    alert(
+      "Conta Poupança:\n" +
+      "Nome: " + contaPoupanca.nome + "\n" +
+      "Banco: " + contaPoupanca.banco + "\n" +
+      "Número da Conta: " + contaPoupanca.numeroConta + "\n" +
+      "Saldo: " + contaPoupanca.saldo + "\n" +
+      "Juros: " + contaPoupanca.juros + "\n" +
+      "Data de Vencimento: " + contaPoupanca.dataVencimento
+    );
+  </script>
+
+</body>
+</html>

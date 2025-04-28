@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Retângulo - Função Construtora</title>
+</head>
+<body>
+  <h1>Retângulo - Calcular Área</h1>
+
+  <script>
+    
+    function Retangulo(x, y) {
+      this.base = x;
+      this.altura = y;
+
+      this.calcularArea = function() {
+        return this.base * this.altura;
+      };
+    }
+
+    const base = parseFloat(prompt("Digite a base do retângulo:"));
+    const altura = parseFloat(prompt("Digite a altura do retângulo:"));
+
+    
+    const ret = new Retangulo(base, altura);
+    console.log("Área do retângulo:", ret.calcularArea());
+    alert("Área do retângulo: " + ret.calcularArea());
+  </script>
+
+</body>
+</html>
