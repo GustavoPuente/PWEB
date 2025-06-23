@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineTracker SPA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <a href="#index" class="logo">
+            <i class="fas fa-film"></i>
+            <h1>CineTracker</h1>
+            <p>Seus filmes assistidos</p>
+        </a>
+        <a href="#adicionar" class="add-movie-btn">+ Adicionar Filme</a>
+    </header>
+
+    <main class="main-content">
+        <section id="page-index" class="page-section">
+            <section class="summary-cards">
+                <div class="card"><div class="card-icon"><i class="fas fa-film"></i></div><div class="card-info"><p>Total de Filmes</p><span id="total-filmes">0</span></div></div>
+                <div class="card"><div class="card-icon"><i class="fas fa-star"></i></div><div class="card-info"><p>Nota Média</p><span id="nota-media">0/10</span></div></div>
+                <div class="card"><div class="card-icon"><i class="far fa-clock"></i></div><div class="card-info"><p>Horas Assistidas</p><span id="horas-assistidas">0h</span></div></div>
+            </section>
+            <section class="search-section">
+                <input type="text" id="search-input" placeholder="Buscar por título, diretor ou gênero...">
+            </section>
+            <p class="movies-found" id="movies-found-text">Carregando filmes...</p>
+            <section class="movie-list" id="movie-list-container"></section>
+        </section>
+
+        <section id="page-adicionar" class="page-section">
+            <a href="#index" class="back-link"><i class="fas fa-arrow-left"></i> Voltar</a>
+            <div class="form-wrapper" id="search-section">
+                <div class="form-header"><i class="fas fa-search"></i><div class="header-text"><h1>Buscar Filme no TMDB</h1><p>Digite o título</p></div></div>
+                <form id="search-form"><div class="input-group"><input type="text" id="search-tmdb-input" placeholder="Ex: Inception..." required></div><button type="submit" class="btn-save">Buscar</button></form>
+                <div id="search-results" class="search-results-container"></div>
+            </div>
+            <div class="form-wrapper" id="details-section" style="display: none;">
+                <div class="form-header"><i class="fas fa-plus-square"></i><div class="header-text"><h1>Adicionar Novo Filme</h1><p>Confirme os dados</p></div></div>
+                <div class="form-container">
+                    <h2 class="form-section-title" id="form-movie-title"></h2>
+                    <form id="add-movie-form">
+                        <input type="hidden" id="backdrop-path">
+                        <div class="form-grid">
+                            <div class="input-group"><label>Título</label><input type="text" id="titulo" readonly></div>
+                            <div class="input-group"><label>Diretor</label><input type="text" id="diretor" readonly></div>
+                            <div class="input-group"><label>Ano</label><input type="number" id="ano" readonly></div>
+                            <div class="input-group"><label>Duração (min)</label><input type="number" id="duracao" readonly></div>
+                            <div class="input-group"><label>Gênero</label><input type="text" id="genero" readonly></div>
+                            <div class="input-group"><label>Classificação</label><input type="text" id="classificacao" readonly></div>
+                        </div>
+                        <div class="input-group"><label>Sinopse</label><textarea id="sinopse" rows="4" readonly></textarea></div>
+                        <div class="rating-group">
+                            <label for="avaliacao">Sua Avaliação: <span id="rating-value">5/10</span></label>
+                            <div class="slider-container"><span>Ruim</span><input type="range" id="avaliacao" min="0" max="10" value="5"><span>Excelente</span></div>
+                        </div>
+                        <div class="form-actions"><button type="submit" class="btn-save"><i class="fas fa-save"></i> Salvar Filme</button><button type="button" id="cancel-add-btn" class="btn-cancel">Cancelar</button></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-detalhes" class="page-section">
+            <a href="#index" class="back-link"><i class="fas fa-arrow-left"></i> Voltar para a lista</a>
+            <div id="detalhe-container" class="detalhe-container">
+                <p style="padding: 20px;">Carregando detalhes do filme...</p>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
