@@ -1,0 +1,90 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.box {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+}
+
+.box h2::after {
+  content: "Cinza";
+}
+
+/* até 420px */
+@media (max-width: 420px) {
+  .box {
+    background-color: gray;
+  }
+  .box h2::after {
+    content: "Cinza";
+  }
+}
+
+
+@media (min-width: 421px) and (max-width: 768px) {
+  .box {
+    background-color: orange;
+  }
+  .box h2::after {
+    content: "Laranja";
+  }
+}
+
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .box {
+    background-color: pink;
+  }
+  .box h2::after {
+    content: "Rosa";
+  }
+}
+
+
+@media (min-width: 1025px) and (max-width: 1080px) {
+  .box {
+    background-color: red;
+  }
+  .box h2::after {
+    content: "Vermelho";
+  }
+}
+
+
+@media (min-width: 1081px) and (max-width: 1366px) {
+  .box {
+    background-color: purple;
+  }
+  .box h2::after {
+    content: "Roxo";
+  }
+}
+
+
+@media (min-width: 1367px) and (max-width: 1920px) {
+  .box {
+    background-color: yellow;
+  }
+  .box h2::after {
+    content: "Amarelo";
+  }
+}
+
+
+@media (min-width: 1921px) {
+  .box {
+    background-color: green;
+  }
+  .box h2::after {
+    content: "Verde";
+  }
+}
