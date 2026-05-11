@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conta Bancária</title>
+     <script src="scriptConta.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Sistema Bancário</h1>
+
+    <div class="container">
+
+        <h2>Conta Corrente</h2>
+
+        <input type="text" id="nomeCorrente" placeholder="Nome do correntista">
+        <input type="text" id="bancoCorrente" placeholder="Banco">
+        <input type="text" id="numeroCorrente" placeholder="Número da conta">
+        <input type="number" id="saldoCorrente" placeholder="Saldo">
+        <input type="number" id="saldoEspecial" placeholder="Saldo especial">
+
+        <button onclick="criarContaCorrente()">
+            Criar Conta Corrente
+        </button>
+
+        <div id="resultadoCorrente"></div>
+
+        <hr>
+
+        <h2>Conta Poupança</h2>
+
+        <input type="text" id="nomePoupanca" placeholder="Nome do correntista">
+        <input type="text" id="bancoPoupanca" placeholder="Banco">
+        <input type="text" id="numeroPoupanca" placeholder="Número da conta">
+        <input type="number" id="saldoPoupanca" placeholder="Saldo">
+        <input type="number" id="jurosPoupanca" placeholder="Juros (%)">
+        <input type="date" id="vencimentoPoupanca">
+
+        <button onclick="criarContaPoupanca()">
+            Criar Conta Poupança
+        </button>
+
+        <div id="resultadoPoupanca"></div>
+
+    </div>
+
+   
+</body>
+</html>
