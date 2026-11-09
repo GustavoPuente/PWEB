@@ -1,10 +1,3 @@
-// ===================================
-// api.js - Consumo de API externa
-// Usa a BrasilAPI (gratuita, não precisa de chave) para mostrar
-// o próximo feriado nacional no topo da página.
-// Documentação: https://brasilapi.com.br/docs#tag/Feriados-Nacionais
-// ===================================
-
 async function buscarProximoFeriado() {
     var elemento = document.getElementById("feriado");
     var hoje = new Date();
@@ -12,7 +5,6 @@ async function buscarProximoFeriado() {
     var ano = hoje.getFullYear();
 
     try {
-        // busca os feriados deste ano e do próximo (para funcionar em dezembro)
         var resp1 = await fetch("https://brasilapi.com.br/api/feriados/v1/" + ano);
         var resp2 = await fetch("https://brasilapi.com.br/api/feriados/v1/" + (ano + 1));
 
@@ -24,7 +16,6 @@ async function buscarProximoFeriado() {
         var lista2 = await resp2.json();
         var feriados = lista1.concat(lista2);
 
-        // procura o primeiro feriado a partir de hoje
         var proximo = null;
         for (var i = 0; i < feriados.length; i++) {
             var data = textoParaData(feriados[i].date);

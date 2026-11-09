@@ -1,11 +1,3 @@
-// ===================================
-// storage.js - Persistência dos dados
-// Os dados ficam no Firebase Firestore (banco na nuvem).
-// Também guardamos uma cópia no localStorage, para o site
-// continuar funcionando se a internet ou o Firebase falhar.
-// ===================================
-
-// Configuração do projeto no Firebase (Console > Configurações do projeto > Seus apps)
 var firebaseConfig = {
     apiKey: "AIzaSyAACEYO9Bf6ZwJTHKWXdWUsVmz2xlT-46M",
     authDomain: "study-manager-1a9e4.firebaseapp.com",
@@ -18,12 +10,10 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
-// Todos os cartões ficam no documento "kanban/dados", dentro do campo "itens"
 var documentoKanban = db.collection("kanban").doc("dados");
 
-var CHAVE_STORAGE = "studyManagerItens"; // cópia local (backup)
+var CHAVE_STORAGE = "studyManagerItens";
 
-// Retorna uma data no formato "aaaa-mm-dd" somando X dias a partir de hoje
 function dataDaqui(dias) {
     var d = new Date();
     d.setDate(d.getDate() + dias);
@@ -32,7 +22,6 @@ function dataDaqui(dias) {
     return d.getFullYear() + "-" + mes + "-" + dia;
 }
 
-// Dados de exemplo para a primeira vez que abrir o site
 function dadosIniciais() {
     return [
         { id: 1, titulo: "Capítulo 4 de Biologia", descricao: "Células e metabolismo", prioridade: "Alta", dataVencimento: dataDaqui(1), responsaveis: "Gustavo", status: "coluna1" },
@@ -42,7 +31,6 @@ function dadosIniciais() {
     ];
 }
 
-// Lê a cópia do localStorage (usada se o Firebase falhar)
 function carregarBackupLocal() {
     try {
         var texto = localStorage.getItem(CHAVE_STORAGE);
@@ -56,7 +44,6 @@ function carregarBackupLocal() {
     return null;
 }
 
-// Carrega os itens do Firestore. É "async" porque precisa esperar a resposta da internet.
 async function carregarDados() {
     try {
         var doc = await documentoKanban.get();
@@ -65,7 +52,6 @@ async function carregarDados() {
             return doc.data().itens;
         }
 
-        // primeira vez: o documento ainda não existe, então cria com os exemplos
         var exemplos = dadosIniciais();
         salvarDados(exemplos);
         return exemplos;
@@ -76,7 +62,6 @@ async function carregarDados() {
     }
 }
 
-// Salva a lista inteira no Firestore (e a cópia no localStorage)
 function salvarDados(itens) {
     try {
         localStorage.setItem(CHAVE_STORAGE, JSON.stringify(itens));
@@ -84,7 +69,6 @@ function salvarDados(itens) {
         console.error("Erro ao salvar no localStorage:", erro);
     }
 
-    // o Firestore não aceita uma lista solta, então guardamos dentro de { itens: [...] }
     return documentoKanban.set({ itens: itens })
         .then(function () {
             return true;

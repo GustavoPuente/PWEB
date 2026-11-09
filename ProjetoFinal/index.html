@@ -6,7 +6,6 @@
     <meta name="description" content="Study Manager - quadro Kanban para planejamento de estudos">
     <title>Study Manager - Kanban</title>
 
-    <!-- Fontes do Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
@@ -15,7 +14,6 @@
 </head>
 <body>
 
-    <!-- ===== CABEÇALHO ===== -->
     <header class="topo">
         <h1>Study Manager</h1>
         <h2>Organize o seu fluxo em colunas claras</h2>
@@ -23,19 +21,16 @@
             Planeje seus estudos em um quadro Kanban. Arraste cartões, acompanhe o
             progresso e conclua o que importa.
         </p>
-        <!-- texto preenchido pela API de feriados (js/api.js) -->
         <p class="feriado" id="feriado">Carregando próximo feriado...</p>
     </header>
 
     <main>
-        <!-- ===== QUADRO KANBAN ===== -->
         <section class="quadro" aria-labelledby="tituloQuadro">
             <div class="quadro-topo">
                 <h2 id="tituloQuadro">Planejamento de Estudos</h2>
                 <button class="btn-novo" id="btnNovo">+ Novo cartão</button>
             </div>
 
-            <!-- Filtros de pesquisa (opcional do projeto) -->
             <div class="filtros">
                 <label for="busca" class="sr-only">Pesquisar</label>
                 <input type="search" id="busca" placeholder="Pesquisar por título, responsável ou data (dd/mm/aaaa)">
@@ -49,7 +44,6 @@
                 </select>
             </div>
 
-            <!-- Legenda das cores -->
             <ul class="legenda">
                 <li><span class="bolinha atrasado"></span> Atrasado</li>
                 <li><span class="bolinha proximo"></span> Vence em até 2 dias</li>
@@ -83,7 +77,6 @@
             </div>
         </section>
 
-        <!-- ===== LISTA CRUD (TABELA) ===== -->
         <section class="crud" aria-labelledby="tituloCrud">
             <h2 id="tituloCrud">Lista CRUD</h2>
             <p>Todos os cartões do quadro em formato de tabela.</p>
@@ -110,7 +103,6 @@
         <p>Projeto Final de PWEB - 2026</p>
     </footer>
 
-    <!-- ===== MODAL DO FORMULÁRIO (CADASTRO / EDIÇÃO) ===== -->
     <div class="modal-fundo" id="modal" aria-hidden="true">
         <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tituloModal">
             <h2 id="tituloModal">Novo cartão</h2>
@@ -153,7 +145,6 @@
                     <span class="erro" id="erroResponsaveis"></span>
                 </div>
 
-                <!-- O status só aparece ao editar (item novo sempre vai pra coluna 1) -->
                 <div class="campo" id="campoStatus">
                     <label for="status">Status (coluna)</label>
                     <select id="status">
@@ -171,10 +162,8 @@
         </div>
     </div>
 
-    <!-- mensagem rápida (toast) -->
     <div class="aviso-toast" id="toast" role="status" aria-live="polite"></div>
 
-    <!-- Firebase (versão "compat", funciona com <script> normal, sem npm) -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 

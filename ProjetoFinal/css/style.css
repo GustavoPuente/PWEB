@@ -1,8 +1,3 @@
-/* ===================================
-   Study Manager - Estilos
-   =================================== */
-
-/* Variáveis de cores (fica mais fácil de mudar depois) */
 :root {
     --verde-escuro: #0f4f45;
     --verde: #1f6f62;
@@ -46,7 +41,6 @@ main,
     padding: 0 20px;
 }
 
-/* esconde visualmente mas deixa para leitores de tela */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -55,7 +49,6 @@ main,
     clip: rect(0, 0, 0, 0);
 }
 
-/* ===== CABEÇALHO ===== */
 .topo {
     padding-top: 10px;
     padding-bottom: 20px;
@@ -94,7 +87,6 @@ main,
     color: var(--texto-claro);
 }
 
-/* ===== QUADRO ===== */
 .quadro {
     margin-top: 10px;
 }
@@ -130,7 +122,6 @@ main,
     background: var(--laranja-escuro);
 }
 
-/* foco visível no teclado (acessibilidade) */
 button:focus-visible,
 input:focus-visible,
 select:focus-visible,
@@ -140,7 +131,6 @@ textarea:focus-visible,
     outline-offset: 2px;
 }
 
-/* filtros */
 .filtros {
     display: flex;
     gap: 10px;
@@ -163,7 +153,6 @@ textarea:focus-visible,
     min-width: 220px;
 }
 
-/* legenda */
 .legenda {
     list-style: none;
     display: flex;
@@ -186,7 +175,6 @@ textarea:focus-visible,
 .bolinha.proximo { background: var(--amarelo); }
 .bolinha.concluido { background: var(--verde-ok); }
 
-/* ===== COLUNAS ===== */
 .colunas {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -237,7 +225,6 @@ textarea:focus-visible,
     transition: 0.2s;
 }
 
-/* quando estou arrastando um card por cima da coluna */
 .lista-cards.destaque {
     background: var(--verde-claro);
     outline: 2px dashed var(--verde);
@@ -250,7 +237,6 @@ textarea:focus-visible,
     padding: 30px 0;
 }
 
-/* ===== CARD ===== */
 .card {
     background: var(--card);
     border: 1px solid var(--borda);
@@ -265,7 +251,6 @@ textarea:focus-visible,
     opacity: 0.5;
 }
 
-/* cores da borda esquerda conforme o prazo */
 .card.atrasado { border-left-color: var(--vermelho); }
 .card.proximo { border-left-color: var(--amarelo); }
 .card.concluido { border-left-color: var(--verde-ok); }
@@ -301,12 +286,10 @@ textarea:focus-visible,
     font-weight: 600;
 }
 
-/* prioridade */
 .etiqueta.Alta { background: #fbe1dc; color: #9e2f1a; }
 .etiqueta.Média { background: #fdf0d5; color: #8a5a00; }
 .etiqueta.Baixa { background: var(--verde-claro); color: var(--verde-escuro); }
 
-/* aviso de prazo */
 .alerta {
     font-size: 13px;
     font-weight: 700;
@@ -343,7 +326,6 @@ textarea:focus-visible,
     color: var(--vermelho);
 }
 
-/* ===== LISTA CRUD ===== */
 .crud {
     background: rgba(255, 255, 255, 0.6);
     border: 1px solid var(--borda);
@@ -362,7 +344,7 @@ textarea:focus-visible,
 }
 
 .tabela-wrapper {
-    overflow-x: auto; /* no celular a tabela rola de lado */
+    overflow-x: auto;
 }
 
 table {
@@ -397,7 +379,6 @@ td {
     white-space: nowrap;
 }
 
-/* ===== MODAL ===== */
 .modal-fundo {
     display: none;
     position: fixed;
@@ -484,7 +465,6 @@ td {
     cursor: pointer;
 }
 
-/* ===== TOAST ===== */
 .aviso-toast {
     position: fixed;
     bottom: 20px;
@@ -512,7 +492,6 @@ td {
     font-size: 14px;
 }
 
-/* ===== RESPONSIVO ===== */
 @media (max-width: 900px) {
     .colunas {
         grid-template-columns: 1fr;
