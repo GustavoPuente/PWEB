@@ -8,88 +8,103 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-    <header class="topo">
-        <h1>Study Manager</h1>
-        <h2>Organize o seu fluxo em colunas claras</h2>
-        <p class="subtitulo">
-            Planeje seus estudos em um quadro Kanban. Arraste cartões, acompanhe o
-            progresso e conclua o que importa.
-        </p>
-        <p class="feriado" id="feriado">Carregando próximo feriado...</p>
-    </header>
-
-    <main>
-        <section class="quadro" aria-labelledby="tituloQuadro">
-            <div class="quadro-topo">
-                <h2 id="tituloQuadro">Planejamento de Estudos</h2>
-                <button class="btn-novo" id="btnNovo">+ Novo cartão</button>
+    <main class="pagina">
+        <header class="topo">
+            <div>
+                <p class="sobretitulo">Seu espaço de organização</p>
+                <h1>Study Manager</h1>
+                <p class="subtitulo">Organize o seu fluxo em colunas claras</p>
+                <p class="intro">Planeje seus estudos em um quadro Kanban. Arraste cartões, acompanhe o progresso e conclua o que importa.</p>
             </div>
 
-            <div class="filtros">
-                <label for="busca" class="sr-only">Pesquisar</label>
+            <nav class="abas" aria-label="Modo de visualização">
+                <button class="aba ativa" data-visao="kanban">Quadro Kanban</button>
+                <button class="aba" data-visao="tabela">Visualizar em tabela</button>
+            </nav>
+        </header>
+
+        <div class="titulo-secao">
+            <h2>Planejamento de Estudos</h2>
+            <button class="btn-novo" id="btnNovo"><span>+</span> Novo cartão</button>
+        </div>
+
+        <section class="filtros">
+            <label class="busca">
+                <span class="sr-only">Pesquisar</span>
                 <input type="search" id="busca" placeholder="Pesquisar por título, responsável ou data (dd/mm/aaaa)">
+            </label>
 
-                <label for="filtroPrioridade" class="sr-only">Filtrar por prioridade</label>
-                <select id="filtroPrioridade">
-                    <option value="">Todas as prioridades</option>
-                    <option value="Alta">Alta</option>
-                    <option value="Média">Média</option>
-                    <option value="Baixa">Baixa</option>
-                </select>
+            <label for="filtroPrioridade" class="sr-only">Filtrar por prioridade</label>
+            <select id="filtroPrioridade">
+                <option value="">Todas as prioridades</option>
+                <option value="Alta">Alta</option>
+                <option value="Média">Média</option>
+                <option value="Baixa">Baixa</option>
+            </select>
+        </section>
+
+        <div class="linha-info">
+            <p class="feriado" id="feriado">Carregando próximo feriado...</p>
+
+            <div class="legenda">
+                <span><i class="bolinha verde"></i> Concluído</span>
+                <span><i class="bolinha amarela"></i> Expirando</span>
+                <span><i class="bolinha vermelha"></i> Atrasado</span>
+            </div>
+        </div>
+
+        <section class="colunas" id="visaoKanban">
+            <div class="coluna">
+                <div class="coluna-topo">
+                    <h3>Conteúdo para estudar</h3>
+                    <span class="contador">0</span>
+                </div>
+                <div class="lista-cards" data-status="coluna1"></div>
             </div>
 
-            <ul class="legenda">
-                <li><span class="bolinha atrasado"></span> Atrasado</li>
-                <li><span class="bolinha proximo"></span> Vence em até 2 dias</li>
-                <li><span class="bolinha concluido"></span> Concluído</li>
-            </ul>
+            <div class="coluna">
+                <div class="coluna-topo">
+                    <h3>Em Progresso</h3>
+                    <span class="contador">0</span>
+                </div>
+                <div class="lista-cards" data-status="coluna2"></div>
+            </div>
 
-            <div class="colunas">
-                <section class="coluna" data-status="coluna1">
-                    <div class="coluna-topo">
-                        <h3 class="nome-coluna">Conteúdo para estudar</h3>
-                        <span class="contador">0</span>
-                    </div>
-                    <div class="lista-cards" data-status="coluna1"></div>
-                </section>
-
-                <section class="coluna" data-status="coluna2">
-                    <div class="coluna-topo">
-                        <h3 class="nome-coluna">Em Progresso</h3>
-                        <span class="contador">0</span>
-                    </div>
-                    <div class="lista-cards" data-status="coluna2"></div>
-                </section>
-
-                <section class="coluna" data-status="coluna3">
-                    <div class="coluna-topo">
-                        <h3 class="nome-coluna">Concluído</h3>
-                        <span class="contador">0</span>
-                    </div>
-                    <div class="lista-cards" data-status="coluna3"></div>
-                </section>
+            <div class="coluna">
+                <div class="coluna-topo">
+                    <h3>Concluído</h3>
+                    <span class="contador">0</span>
+                </div>
+                <div class="lista-cards" data-status="coluna3"></div>
             </div>
         </section>
 
-        <section class="crud" aria-labelledby="tituloCrud">
-            <h2 id="tituloCrud">Lista CRUD</h2>
-            <p>Todos os cartões do quadro em formato de tabela.</p>
+        <section class="area-tabela" id="visaoTabela" hidden>
+            <div class="area-tabela-topo">
+                <p>Todos os cartões do quadro em formato de tabela.</p>
 
-            <div class="tabela-wrapper">
+                <div class="filtro-coluna">
+                    <button class="ativo" data-filtro="">Todos</button>
+                    <button data-filtro="coluna1">Para estudar</button>
+                    <button data-filtro="coluna2">Em Progresso</button>
+                    <button data-filtro="coluna3">Concluídos</button>
+                </div>
+            </div>
+
+            <div class="caixa-tabela">
                 <table>
                     <thead>
                         <tr>
+                            <th>Prioridade</th>
                             <th>Título</th>
                             <th>Detalhes</th>
-                            <th>Prioridade</th>
-                            <th>Vencimento</th>
                             <th>Coluna</th>
+                            <th>Vencimento</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -97,11 +112,9 @@
                 </table>
             </div>
         </section>
-    </main>
 
-    <footer class="rodape">
-        <p>Projeto Final de PWEB - 2026</p>
-    </footer>
+        <p class="rodape">Estudo • Organização • Progresso</p>
+    </main>
 
     <div class="modal-fundo" id="modal" aria-hidden="true">
         <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tituloModal">
@@ -162,7 +175,7 @@
         </div>
     </div>
 
-    <div class="aviso-toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>

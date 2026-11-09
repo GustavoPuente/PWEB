@@ -29,7 +29,7 @@ async function buscarProximoFeriado() {
             var dataFeriado = textoParaData(proximo.date);
             var dias = Math.round((dataFeriado - hoje) / 86400000);
             var quando = dias === 0 ? "é hoje!" : "em " + dias + " dia(s)";
-            elemento.textContent = "📅 Próximo feriado: " + proximo.name + " (" + formatarData(proximo.date) + ") " + quando;
+            elemento.innerHTML = "▦ <span><strong>Próximo feriado</strong> · " + proximo.name + " (" + formatarData(proximo.date) + ") · " + quando + "</span>";
         } else {
             elemento.textContent = "Nenhum feriado encontrado.";
         }

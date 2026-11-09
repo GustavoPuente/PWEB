@@ -6,6 +6,10 @@ var colunas = {
 
 var itens = [];
 var idEditando = null;
+var filtroTabela = "";
+
+var iconeEditar = '<svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg>';
+var iconeExcluir = '<svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="m19 6-1 14H6L5 6"/><path d="M10 11v5M14 11v5"/></svg>';
 
 var listas = document.querySelectorAll(".lista-cards");
 var contadores = document.querySelectorAll(".contador");
@@ -46,11 +50,11 @@ function situacaoPrazo(item) {
 
 function textoAlerta(item, situacao) {
     var dias = Math.round((textoParaData(item.dataVencimento) - hojeSemHora()) / 86400000);
-    if (situacao === "concluido") return "✔ Concluído";
-    if (situacao === "atrasado") return "⛔ Atrasado há " + Math.abs(dias) + " dia(s)";
+    if (situacao === "concluido") return "✓ Concluído";
+    if (situacao === "atrasado") return "⊖ Atrasado há " + Math.abs(dias) + " dia(s)";
     if (situacao === "proximo") {
-        if (dias === 0) return "⚠ Vence hoje!";
-        return "⚠ Vence em " + dias + " dia(s)";
+        if (dias === 0) return "△ Vence hoje!";
+        return "△ Vence em " + dias + " dia(s)";
     }
     return "";
 }
@@ -96,6 +100,13 @@ function itensFiltrados() {
     });
 }
 
+function botoesAcao(id) {
+    return "<div class='botoes'>" +
+        "<button class='btn-icone' data-acao='editar' data-id='" + id + "' title='Editar' aria-label='Editar'>" + iconeEditar + "</button>" +
+        "<button class='btn-icone excluir' data-acao='excluir' data-id='" + id + "' title='Excluir' aria-label='Excluir'>" + iconeExcluir + "</button>" +
+        "</div>";
+}
+
 function criarCard(item) {
     var situacao = situacaoPrazo(item);
     var card = document.createElement("article");
@@ -113,13 +124,10 @@ function criarCard(item) {
         (alerta ? "<p class='alerta " + situacao + "'>" + alerta + "</p>" : "") +
         "<div class='infos'>" +
             "<span class='etiqueta " + item.prioridade + "'>" + item.prioridade + "</span>" +
-            "<span class='etiqueta'>📅 " + formatarData(item.dataVencimento) + "</span>" +
-            "<span class='etiqueta'>👤 " + escaparHTML(item.responsaveis) + "</span>" +
+            "<span class='etiqueta'>▦ " + formatarData(item.dataVencimento) + "</span>" +
+            "<span class='etiqueta'>♟ " + escaparHTML(item.responsaveis) + "</span>" +
         "</div>" +
-        "<div class='botoes'>" +
-            "<button class='btn-pequeno' data-acao='editar' data-id='" + item.id + "'>Editar</button>" +
-            "<button class='btn-pequeno excluir' data-acao='excluir' data-id='" + item.id + "'>Excluir</button>" +
-        "</div>";
+        botoesAcao(item.id);
 
     card.addEventListener("dragstart", function (e) {
         e.dataTransfer.setData("text/plain", item.id);
@@ -158,6 +166,12 @@ function renderizar() {
 function renderizarTabela(lista) {
     corpoTabela.innerHTML = "";
 
+    if (filtroTabela !== "") {
+        lista = lista.filter(function (item) {
+            return item.status === filtroTabela;
+        });
+    }
+
     if (lista.length === 0) {
         corpoTabela.innerHTML = "<tr><td colspan='6'>Nenhum cartão encontrado.</td></tr>";
         return;
@@ -166,16 +180,22 @@ function renderizarTabela(lista) {
     lista.forEach(function (item) {
         var tr = document.createElement("tr");
         tr.innerHTML =
+            "<td><span class='etiqueta " + item.prioridade + "'>" + item.prioridade + "</span></td>" +
             "<td>" + escaparHTML(item.titulo) + "</td>" +
             "<td>" + escaparHTML(item.descricao || "-") + "</td>" +
-            "<td><span class='etiqueta " + item.prioridade + "'>" + item.prioridade + "</span></td>" +
+            "<td><span class='etiqueta Baixa'>" + colunas[item.status] + "</span></td>" +
             "<td>" + formatarData(item.dataVencimento) + "</td>" +
-            "<td><span class='badge-coluna'>" + colunas[item.status] + "</span></td>" +
-            "<td>" +
-                "<button class='btn-pequeno' data-acao='editar' data-id='" + item.id + "'>Editar</button> " +
-                "<button class='btn-pequeno excluir' data-acao='excluir' data-id='" + item.id + "'>Excluir</button>" +
-            "</td>";
+            "<td>" + botoesAcao(item.id) + "</td>";
         corpoTabela.appendChild(tr);
+    });
+}
+
+function trocarVisao(visao) {
+    document.getElementById("visaoKanban").hidden = visao !== "kanban";
+    document.getElementById("visaoTabela").hidden = visao !== "tabela";
+
+    document.querySelectorAll(".aba").forEach(function (aba) {
+        aba.classList.toggle("ativa", aba.dataset.visao === visao);
     });
 }
 
@@ -365,6 +385,23 @@ document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && modal.classList.contains("aberto")) {
         fecharModal();
     }
+});
+
+document.querySelectorAll(".aba").forEach(function (aba) {
+    aba.addEventListener("click", function () {
+        trocarVisao(aba.dataset.visao);
+    });
+});
+
+document.querySelectorAll(".filtro-coluna button").forEach(function (botao) {
+    botao.addEventListener("click", function () {
+        filtroTabela = botao.dataset.filtro;
+        document.querySelectorAll(".filtro-coluna button").forEach(function (b) {
+            b.classList.remove("ativo");
+        });
+        botao.classList.add("ativo");
+        renderizar();
+    });
 });
 
 campoBusca.addEventListener("input", renderizar);
