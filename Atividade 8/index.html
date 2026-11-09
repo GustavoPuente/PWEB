@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Funções JavaScript</title>
+</head>
+<body>
+
+    <h1>Exercícios de JavaScript</h1>
+
+    <script src="funcoes.js"></script>
+    <script>
+    
+        let n1 = Number(prompt("Digite o primeiro número:"));
+        let n2 = Number(prompt("Digite o segundo número:"));
+        let n3 = Number(prompt("Digite o terceiro número:"));   
+     
+        alert("O maior número é: " + maiorNumero(n1, n2, n3));
+        alert("Ordem crescente: " + ordemCrescente(n1, n2, n3));
+
+        
+        
+let palavra = prompt("Digite uma palavra:");
+
+if (palindromo(palavra)) {
+    alert("É um palíndromo!");
+} else {
+    alert("Não é um palíndromo!");
+}
+
+        alert("A soma dos dois primeiros números é: " + somar(n1, n2));
+        alert("A média dos três números é: " + calcularMedia(n1, n2, n3));
+
+    </script>
+
+</body>
+</html>
