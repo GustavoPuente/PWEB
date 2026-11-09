@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Study Manager - quadro Kanban para planejamento de estudos">
+    <title>Study Manager - Kanban</title>
+
+    <!-- Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ===== CABEÇALHO ===== -->
+    <header class="topo">
+        <h1>Study Manager</h1>
+        <h2>Organize o seu fluxo em colunas claras</h2>
+        <p class="subtitulo">
+            Planeje seus estudos em um quadro Kanban. Arraste cartões, acompanhe o
+            progresso e conclua o que importa.
+        </p>
+        <!-- texto preenchido pela API de feriados (js/api.js) -->
+        <p class="feriado" id="feriado">Carregando próximo feriado...</p>
+    </header>
+
+    <main>
+        <!-- ===== QUADRO KANBAN ===== -->
+        <section class="quadro" aria-labelledby="tituloQuadro">
+            <div class="quadro-topo">
+                <h2 id="tituloQuadro">Planejamento de Estudos</h2>
+                <button class="btn-novo" id="btnNovo">+ Novo cartão</button>
+            </div>
+
+            <!-- Filtros de pesquisa (opcional do projeto) -->
+            <div class="filtros">
+                <label for="busca" class="sr-only">Pesquisar</label>
+                <input type="search" id="busca" placeholder="Pesquisar por título, responsável ou data (dd/mm/aaaa)">
+
+                <label for="filtroPrioridade" class="sr-only">Filtrar por prioridade</label>
+                <select id="filtroPrioridade">
+                    <option value="">Todas as prioridades</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Média">Média</option>
+                    <option value="Baixa">Baixa</option>
+                </select>
+            </div>
+
+            <!-- Legenda das cores -->
+            <ul class="legenda">
+                <li><span class="bolinha atrasado"></span> Atrasado</li>
+                <li><span class="bolinha proximo"></span> Vence em até 2 dias</li>
+                <li><span class="bolinha concluido"></span> Concluído</li>
+            </ul>
+
+            <div class="colunas">
+                <section class="coluna" data-status="coluna1">
+                    <div class="coluna-topo">
+                        <h3 class="nome-coluna">Conteúdo para estudar</h3>
+                        <span class="contador">0</span>
+                    </div>
+                    <div class="lista-cards" data-status="coluna1"></div>
+                </section>
+
+                <section class="coluna" data-status="coluna2">
+                    <div class="coluna-topo">
+                        <h3 class="nome-coluna">Em Progresso</h3>
+                        <span class="contador">0</span>
+                    </div>
+                    <div class="lista-cards" data-status="coluna2"></div>
+                </section>
+
+                <section class="coluna" data-status="coluna3">
+                    <div class="coluna-topo">
+                        <h3 class="nome-coluna">Concluído</h3>
+                        <span class="contador">0</span>
+                    </div>
+                    <div class="lista-cards" data-status="coluna3"></div>
+                </section>
+            </div>
+        </section>
+
+        <!-- ===== LISTA CRUD (TABELA) ===== -->
+        <section class="crud" aria-labelledby="tituloCrud">
+            <h2 id="tituloCrud">Lista CRUD</h2>
+            <p>Todos os cartões do quadro em formato de tabela.</p>
+
+            <div class="tabela-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Detalhes</th>
+                            <th>Prioridade</th>
+                            <th>Vencimento</th>
+                            <th>Coluna</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoTabela"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <p>Projeto Final de PWEB - 2026</p>
+    </footer>
+
+    <!-- ===== MODAL DO FORMULÁRIO (CADASTRO / EDIÇÃO) ===== -->
+    <div class="modal-fundo" id="modal" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tituloModal">
+            <h2 id="tituloModal">Novo cartão</h2>
+
+            <form id="formCartao" novalidate>
+                <div class="campo">
+                    <label for="titulo">Título *</label>
+                    <input type="text" id="titulo" maxlength="60">
+                    <span class="erro" id="erroTitulo"></span>
+                </div>
+
+                <div class="campo">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" rows="3" maxlength="200"></textarea>
+                    <span class="erro" id="erroDescricao"></span>
+                </div>
+
+                <div class="linha">
+                    <div class="campo">
+                        <label for="prioridade">Prioridade *</label>
+                        <select id="prioridade">
+                            <option value="">Selecione</option>
+                            <option value="Alta">Alta</option>
+                            <option value="Média">Média</option>
+                            <option value="Baixa">Baixa</option>
+                        </select>
+                        <span class="erro" id="erroPrioridade"></span>
+                    </div>
+
+                    <div class="campo">
+                        <label for="dataVencimento">Data de vencimento *</label>
+                        <input type="date" id="dataVencimento">
+                        <span class="erro" id="erroData"></span>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="responsaveis">Responsáveis *</label>
+                    <input type="text" id="responsaveis" placeholder="Ex: Ana, Bruno">
+                    <span class="erro" id="erroResponsaveis"></span>
+                </div>
+
+                <!-- O status só aparece ao editar (item novo sempre vai pra coluna 1) -->
+                <div class="campo" id="campoStatus">
+                    <label for="status">Status (coluna)</label>
+                    <select id="status">
+                        <option value="coluna1">Conteúdo para estudar</option>
+                        <option value="coluna2">Em Progresso</option>
+                        <option value="coluna3">Concluído</option>
+                    </select>
+                </div>
+
+                <div class="modal-botoes">
+                    <button type="button" class="btn-sec" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn-novo">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- mensagem rápida (toast) -->
+    <div class="aviso-toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- Firebase (versão "compat", funciona com <script> normal, sem npm) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <script src="js/storage.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
